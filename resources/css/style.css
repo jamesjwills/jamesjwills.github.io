@@ -40,27 +40,19 @@ html {
   }
 
   .headshot {
-      display: flex;
-      justify-content:flex-start;
-      width: 50%;
+      flex: auto;
+      justify-content: flex-start;
       padding: 1rem 0;
   }
 
   .spiel {
-    width: 50%;
+    flex: auto;
+    padding: 0 1rem;
 }
 
   .main {
       display: flex;
       flex-direction: column;
       margin: 1rem;
-      padding: 0 20rem 0 20rem;
+      padding: 0 20% 0 20%;
   }
-
-  .papers {
-      width: 100%;
-  }
-
-.teaching {
-    width: 100%;
-}
