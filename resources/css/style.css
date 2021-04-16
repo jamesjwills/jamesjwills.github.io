@@ -28,6 +28,7 @@ html {
       display: block;
       height: auto;
       background-color: rgb(180, 187, 186);
+      opacity: 0.8;
       padding: 3rem 10%;
   }
 
