@@ -1,11 +1,11 @@
 html {
-    font-size: 16px;
+    font-size: 100%;
   }
 
   body {
         margin: 0 auto;
   }
-  
+
   h1 {
       font-size: 4rem;
       font-weight: normal;
@@ -32,7 +32,7 @@ html {
       height: auto;
       background-color: rgb(180, 187, 186);
       opacity: 0.8;
-      padding: 3rem 10%;
+      padding: 10%;
   }
 
 
