@@ -1,13 +1,13 @@
 html {
     font-size: 16px;
-    
   }
 
-  h1 {
+  header a {
       font-size: 4rem;
       font-weight: normal;
       margin: 0;
       font-family: "Open Sans", sans-serif;
+      text-decoration: none;
   }
 
   h2 {
@@ -22,36 +22,93 @@ html {
 
   p, ul {
       font-family: Georgia, 'Times New Roman', Times, serif;
+      
   }
 
-  header, footer {
-      display: block;
+  a {
+    color: black;
+  }
+
+  li a {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.5rem;
+    color: black;
+    text-decoration: none;
+  }
+
+  header {
       height: auto;
       background-color: rgb(180, 187, 186);
       opacity: 0.8;
       padding: 3rem 10%;
   }
 
+  footer {
+      height: auto;
+      background-color: rgb(180, 187, 186);
+      opacity: 0.8;
+      padding: 1rem 10%;
+  }
+
+  .header_content {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  nav ul {
+    display: flex;
+    list-style-type: none;
+  }
+ 
+  nav li {
+    padding: 1rem 1rem;
+  }
+
+  @media only screen and (max-width: 970px) {
+    header .header_content {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about_me {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+  }
+
+  
 
   .about_me {
       display: flex;
+      justify-content: space-around;
+      align-items: center;
       padding: 0 10%;
-      height: 300px;
+      height: auto;
       background-color: rgb(231, 236, 236);
   }
 
   .headshot {
-      justify-content: flex-start;
       padding: 1rem 0;
   }
 
   .spiel {
-    padding: 0 1rem;
+    padding: 0 5rem;
 }
 
   .main {
       display: flex;
       flex-direction: column;
       margin: 1rem;
-      padding: 0 10% 0 10%;
+      padding: 0 10%;
+  }
+
+  @media only screen and (max-width: 480px) {
+    html {
+      font-size: 32px;
+    }
   }
