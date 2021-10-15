@@ -20,9 +20,8 @@ html {
     font-size: 1.5rem;
   }
 
-  p, ul {
+  p {
       font-family: Georgia, 'Times New Roman', Times, serif;
-      
   }
 
   a {
@@ -37,6 +36,10 @@ html {
   }
 
   header {
+      display: flex;
+      flex-direction:row;
+      align-items: center;
+      justify-content: space-between;
       height: auto;
       background-color: rgb(180, 187, 186);
       opacity: 0.8;
@@ -50,16 +53,19 @@ html {
       padding: 1rem 10%;
   }
 
-  .header_content {
+  nav {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   nav ul {
     display: flex;
     list-style-type: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
  
   nav li {
@@ -67,7 +73,7 @@ html {
   }
 
   @media only screen and (max-width: 970px) {
-    header .header_content {
+    header {
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -77,6 +83,10 @@ html {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+    }
+
+    nav ul {
+      padding: 0 0;
     }
 
   }
@@ -108,7 +118,48 @@ html {
   }
 
   @media only screen and (max-width: 480px) {
-    html {
-      font-size: 32px;
+    header {
+      display: flex;
+      flex-direction:column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav ul {
+      display: flex;
+      list-style-type: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0;
+    }
+
+    nav ul li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0;
+    }
+
+    .myname a {
+      font-size: 2rem;
+    }
+
+    .myname {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .spiel {
+      padding: 0 2rem;
+    }
+    .headshot {
+      padding: 1rem 2rem;
     }
   }
