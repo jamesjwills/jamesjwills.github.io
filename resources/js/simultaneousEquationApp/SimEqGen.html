@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Damion" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="./resources/css/reset.css">
+  <link rel="stylesheet" href="./resources/css/style.css">
+  <title>Simultaneous Equation Generator</title>
+  <script src="../simultaneousEquationApp/resources/js/generatesDeterminantEqualToOne.js" defer></script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+      <style>
+        /* Initially hide the content */
+        .hidden-content {
+          display: none;
+        }
+      </style>
+
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <h1>
+      Simultaneous Equation Generator
+    </h1>
+  </header>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <div>
+      <div id="equation-box">
+        <p>
+          Click the button to generate a two-variable simultaneous equation with integer solutions.
+        </p>
+        <button id="equationButton" onclick="displayEquations()">Generate Equation</button>
+
+        <div class="box" id="equation-container">
+          $$\begin{align}
+          ax + by &= e \\
+          cx + dy &= f
+          \end{align}$$
+        </div>
+
+
+      </div>
+      <div id="answer-box">
+        <p>
+          Click the button to reveal the answer.
+        </p>
+        <button id="answerButton" onclick="displayAnswer()">Reveal Answer</button>
+
+        <div class="box" id="answer-container">
+          $$\begin{align}
+          x &= m \\
+          y &= n
+          \end{align}
+          $$
+        </div>
+
+        <div class="box">
+          
+
+          <!-- Link to toggle visibility -->
+          <a href="#" id="toggleLink">HOW IT WORKS</a>
+        
+          <!-- Hidden content to be revealed -->
+          <div id="hiddenContent" class="hidden-content">
+            <p>The code makes use of Bezout's Identity and the Extended Euclidean Algorithm to calculate the modular multiplicative inverse of a modulo b and b modulo a and then generates values of c and d to guarantee the matrix of coefficients has a determinant equal to 1. It then makes use of Cramer's Rule to find the solution. The determinant being equal to 1 guarantees the solutions are always integers.</p>
+          </div>
+        
+          <script>
+            // JavaScript to toggle visibility
+            document.getElementById('toggleLink').addEventListener('click', function () {
+              var hiddenContent = document.getElementById('hiddenContent');
+              // Toggle the CSS class to show/hide the content
+              hiddenContent.classList.toggle('hidden-content');
+            });
+          </script>
+        </div>
+        
+
+
+      </div>
+
+
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div id="how-it-works">
+        <p>Developed by James Wills 2023</p>
+      </div>
+    </footer>
+
+  </div>
+</body>
+
+</html>

@@ -1,65 +1,147 @@
 html {
-    font-size: 16px;
-  }
-
-body {
-  margin: 0 0;
+  font-size: 18px;
+  height: 30%;
 }
 
-  header a {
-      font-size: 4rem;
-      font-weight: normal;
-      margin: 0;
-      font-family: "Open Sans", sans-serif;
-      text-decoration: none;
-  }
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0;
+  min-height: 100vh;
 
-  h2 {
-    font-family: "Open Sans", sans-serif;
-    font-size: 3rem;
-  }
+}
 
-  h3 {
-    font-family: "Open Sans", sans-serif;
-    font-size: 1.5rem;
-  }
+header a {
+  font-size: 4rem;
+  font-weight: normal;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
+}
 
-  p {
-      font-family: Georgia, 'Times New Roman', Times, serif;
-  }
+h2 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 3rem;
+}
 
-  a {
-    color: black;
-  }
+h3 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5rem;
+}
 
-  li a {
-    font-family: "Open Sans", sans-serif;
-    font-size: 1.5rem;
-    color: black;
-    text-decoration: none;
-  }
+p {
+  font-family: Georgia, sans-serif;
+}
 
+a {
+  color: black;
+}
+
+li a {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5rem;
+  color: black;
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  background-color: rgb(180, 187, 186);
+  opacity: 0.8;
+  padding: 3rem 10%;
+  box-sizing: border-box;
+}
+
+footer {
+  flex-shrink: 0;
+  /* Prevents the footer from shrinking when there's limited space */
+  height: 80px;
+  background-color: rgb(180, 187, 186);
+  opacity: 0.8;
+  padding: 1rem 10%;
+  box-sizing: border-box;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+nav li {
+  padding: 1rem 1rem;
+}
+
+.about_me {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 10%;
+  height: auto;
+  /*background-color: rgb(231, 236, 236);*/
+}
+
+.headshot {
+  padding: 1rem 0;
+}
+
+.spiel {
+ padding: 0 5rem;
+}
+
+.main {
+  margin: 1rem;
+  padding: 0 10%;
+  flex: 1;
+}
+
+.teaching ul li p a {
+  font-size: 1rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+@media only screen and (max-width: 970px) {
   header {
-      display: flex;
-      flex-direction:row;
-      align-items: center;
-      justify-content: space-between;
-      height: auto;
-      background-color: rgb(180, 187, 186);
-      opacity: 0.8;
-      padding: 3rem 10%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  footer {
-      height: auto;
-      background-color: rgb(180, 187, 186);
-      opacity: 0.8;
-      padding: 1rem 10%;
+  .about_me {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav ul {
+    padding: 0 0;
+  }
+
+}
+
+@media only screen and (max-width: 480px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   nav {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
   }
@@ -67,101 +149,34 @@ body {
   nav ul {
     display: flex;
     list-style-type: none;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0;
+  }
+
+  nav ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0;
+  }
+
+  .myname a {
+    font-size: 2rem;
+  }
+
+  .myname {
+    display: flex;
     align-items: center;
     justify-content: center;
   }
- 
-  nav li {
-    padding: 1rem 1rem;
-  }
 
-  .about_me {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 0 10%;
-      height: auto;
-      background-color: rgb(231, 236, 236);
+  .spiel {
+    padding: 0 2rem;
   }
 
   .headshot {
-      padding: 1rem 0;
+    padding: 1rem 2rem;
   }
-
-  .spiel {
-    padding: 0 5rem;
 }
-
-  .main {
-      display: flex;
-      flex-direction: column;
-      margin: 1rem;
-      padding: 0 10%;
-  }
-
-  @media only screen and (max-width: 970px) {
-    header {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .about_me {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    nav ul {
-      padding: 0 0;
-    }
-
-  }
-
-  @media only screen and (max-width: 480px) {
-    header {
-      display: flex;
-      flex-direction:column;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    nav ul {
-      display: flex;
-      list-style-type: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0 0;
-    }
-
-    nav ul li {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0 0;
-    }
-
-    .myname a {
-      font-size: 2rem;
-    }
-
-    .myname {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .spiel {
-      padding: 0 2rem;
-    }
-    .headshot {
-      padding: 1rem 2rem;
-    }
-  }

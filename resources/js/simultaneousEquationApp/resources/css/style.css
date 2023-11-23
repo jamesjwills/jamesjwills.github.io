@@ -1,0 +1,82 @@
+/* Reset some default styles */
+body, h1, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply a background color to the body */
+body {
+  background-color: #f4f4f4;
+  font-family: 'Roboto', sans-serif; /* Use Roboto font for the entire page */
+}
+
+/* Header styling */
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Main content styling */
+.main-content {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Equation box styling */
+#equation-box {
+  margin-bottom: 20px;
+}
+
+/*
+#equation-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+}
+*/
+.box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+/* Answer box styling */
+#answer-box {
+  margin-top: 20px;
+}
+/*
+#answer-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+}
+*/
+/* Button styling */
+button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Footer styling */
+footer {
+  margin-top: 20px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Responsive styling (optional) */
+@media only screen and (max-width: 600px) {
+  .main-content {
+    padding: 10px;
+  }
+}
