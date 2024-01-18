@@ -6,14 +6,14 @@ function modInverse(a, m) {
 
   while (a > 1) {
     const q = Math.floor(a / m);
-    let t = m;
+    let t = m; //t stores value of m
 
-    m = a % m;
-    a = t;
+    m = a % m; //m reassigned.
+    a = t; //a stores value of t which was initial value of m.
 
-    t = x0;
-    x0 = x1 - q * x0;
-    x1 = t;
+    t = x0; //t can now store x0 since m is now stored in a.
+    x0 = x1 - q * x0; //x0 reassigned
+    x1 = t; //x1 reassigned to the value of t
   }
 
   if (x1 < 0) {

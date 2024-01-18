@@ -1,5 +1,5 @@
 function generateEquations() {
-  // Generate random coefficients and constants
+  // Generate random coefficients and constants. No constraint on the determinant. Can have non-integer solutions.
   const a1 = getRandomInt(-10, 10);
   const b1 = getRandomInt(-10, 10);
   const c1 = getRandomInt(-10, 10);
