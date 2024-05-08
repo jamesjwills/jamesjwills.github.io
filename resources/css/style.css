@@ -1,182 +1,178 @@
 html {
-  font-size: 18px;
-  height: 30%;
+  font-size: 12px;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0;
-  min-height: 100vh;
-
+h1, h2, h3, h4, h5, h6 {
+  font-family: IBM Plex Mono;
 }
 
-header a {
-  font-size: 4rem;
-  font-weight: normal;
-  margin: 0;
-  font-family: "Open Sans", sans-serif;
-  text-decoration: none;
+h1 {
+  font-size: 2.5rem;
 }
 
 h2 {
-  font-family: "Open Sans", sans-serif;
-  font-size: 3rem;
+  font-size: 2.2rem;
 }
 
 h3 {
-  font-family: "Open Sans", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+}
+
+h4 {
+  font-size: 1.1rem;
 }
 
 p {
-  font-family: Georgia, sans-serif;
+  font-family: Merriweather;
 }
 
 a {
-  color: black;
-}
-
-li a {
-  font-family: "Open Sans", sans-serif;
-  font-size: 1.5rem;
-  color: black;
   text-decoration: none;
+  color:black;
 }
 
-header {
+/*-----HEADER-----*/
+
+.header {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: auto;
-  background-color: rgb(180, 187, 186);
-  opacity: 0.8;
-  padding: 3rem 10%;
-  box-sizing: border-box;
+  border-top: 2px solid oldlace;
+  padding: 0.8rem;
+  height: 10vh;
 }
 
-footer {
-  flex-shrink: 0;
-  /* Prevents the footer from shrinking when there's limited space */
-  height: 80px;
-  background-color: rgb(180, 187, 186);
-  opacity: 0.8;
-  padding: 1rem 10%;
-  box-sizing: border-box;
-}
-
-nav {
+.header__name {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-nav ul {
-  display: flex;
-  list-style-type: none;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-nav li {
-  padding: 1rem 1rem;
-}
-
-.about_me {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 10%;
-  height: auto;
-  /*background-color: rgb(231, 236, 236);*/
-}
-
-.headshot {
-  padding: 1rem 0;
-}
-
-.spiel {
- padding: 0 5rem;
-}
-
-.main {
-  margin: 1rem;
-  padding: 0 10%;
   flex: 1;
+  align-items: center;
 }
 
-.teaching ul li p a {
-  font-size: 1rem;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+.header__initials {
+  display: none;
+  flex: 1;
+  align-items: center;
 }
 
-@media only screen and (max-width: 970px) {
-  header {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .about_me {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  nav ul {
-    padding: 0 0;
-  }
-
+.header__full-stop {
+  color:navajowhite;
 }
 
-@media only screen and (max-width: 480px) {
-  header {
+.header__socials {
+  display: flex;
+  flex: 0.3;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__socials-item {
+  font-size: 2.5rem;
+  text-decoration: none;
+  color:black;
+}
+
+.header__socials-item:hover {
+  color: navajowhite;
+}
+
+/*-----ABOUT-----*/
+
+.about__intro {
+  border-bottom: 2px solid oldlace;
+  border-top:    2px solid oldlace;
+}
+
+.about__intro__name {
+  display: none;
+}
+
+.about__intro__blurb {
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.about__content {
+  padding: 0.8rem 0;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 1rem;
+}
+
+.about__research, .about__projects {
+  padding: 0 0.8rem;
+}
+
+.about__research, .about__projects, .about__research__nav, .about__projects__nav {
+  
+  background-color:oldlace;
+}
+
+.about__research-item, .about__projects-item {
+  text-decoration: none;
+  color:black;
+  background-color: white;
+  padding: 0.2rem;
+}
+
+/*-----FOOTER-----*/
+
+/* .footer {
+  font-size: 0.5rem;
+} */
+
+
+
+/*-----MEDIA QUERIES------*/
+
+@media screen and (min-width: 481px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    padding: 3rem 3rem;
+  }
+
+  .header__name {
+    display: none;
+  }
+
+  .header__initials {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .about__intro {
+    padding: 0.8rem 0;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 1rem;
   }
 
-  nav ul {
-    display: flex;
-    list-style-type: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0;
+  .about__intro__name {
+    display: block;
   }
 
-  nav ul li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 0;
-  }
-
-  .myname a {
-    font-size: 2rem;
-  }
-
-  .myname {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .spiel {
-    padding: 0 2rem;
-  }
-
-  .headshot {
-    padding: 1rem 2rem;
+  .about__intro__name, .about__intro__blurb {
+    padding: 0 0.8rem;
+    text-align: left;
   }
 }
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 17px;
+  }
+
+  body {
+    padding: 3rem 5rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 20px;
+  }
+  
+  body {
+    padding: 3rem 10rem;
+  }
+}
+

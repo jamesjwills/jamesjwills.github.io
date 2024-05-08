@@ -2,57 +2,74 @@
 <html>
 
 <head>
-    <!--<link rel="stylesheet" href="resources/css/reset.css">-->
-    <link rel="stylesheet" href="resources/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Thasadith&display=swap"
-        rel="stylesheet">
-    <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>James Wills</title>
+  <link rel="stylesheet" href="resources/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="../jamesjwills.github.io-main/resources/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../jamesjwills.github.io-main/resources/favicon-32x32-removebg-preview.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../jamesjwills.github.io-main/resources/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+  <title>James Wills</title>
 </head>
 
 <body>
-    <header>
-        <div class="myname">
-            <a href="index.html">James Wills</a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="research.html">Research</a></li>
-                <li><a href='talks.html'>Talks</a></li>
-                <li><a href='teaching.html'>Teaching</a></li>
-                <!--<li><a href='CV.html' >CV</a></li>-->
-            </ul>
+
+  <header class="header">
+    <h1 class="header__name">J<span class="header__full-stop">.</span> Wills</h1>
+    <h1 class="header__initials">J<span class="header__full-stop">.</span>W<span class="header__full-stop">.</span></h1>
+    
+    <nav class="header__socials">
+      <a href="https://github.com/jamesjwills" target="_blank" class="header__socials-item"><i class="fa-brands fa-github"></i></a>
+      <a href="linkedin.com/in/jamesjwills" target="_blank" class="header__socials-item"><i class="fa-brands fa-linkedin-in"></i></a>
+    </nav>
+  </header>
+
+  <main class="about">
+
+    <section class="about__intro">
+      <section class="about__intro__name">
+        <h2 class="about__intro__name--full-name">James Wills</h2>
+      </section>
+  
+      <section class="about__intro__blurb">
+        <p>Hello, I'm James: a philosopher of physics turned software developer.
+          Learn more about my previous philosophical life and my current software life below.</p>
+      </section>
+    </section>
+
+    <nav class="about__content">
+
+      <section class="about__research" id="research">
+        <h3 class="about__research__title">Research.</h3>
+        <nav class="about__research__nav">
+          <h4 class="about__research-item"><a href="https://philsci-archive.pitt.edu/18071/1/wills_class_indist.pdf">Particle Identity</a></h4>
+          <h4 href="#" class="about__research-item">Entropy and Information</h4>
+          <h4 class="about__research-item"><a href="https://cambridge.org/core/journals/philosophy-of-science/article/abs/representing-mixtures/63E94B24A8F3E01838E43615B8F99F5A#article">Thermodynamic Mixtures</a></h4>
+          <h4 href="#" class="about__research-item"><a href="https://etheses.lse.ac.uk/4572/">PhD Thesis</a></h4>
         </nav>
-    </header>
-    <div class="main">
-        <div class="about_me">
-            <div class="headshot"><img src="resources/jameswills.jpeg"></div>
-            <div class="spiel">
-                <p> I completed a PhD in Philosophy at the <a
-                        href='https://www.lse.ac.uk/philosophy/'>London School of Economics</a>. Previously I studied <a
-                        href='https://www.ox.ac.uk/admissions/undergraduate/courses-listing/physics-and-philosophy'>Physics
-                        and Philosophy</a> at <a href='https://www.bnc.ox.ac.uk/'>Brasenose College, Oxford</a>.
-                    I was previously Departmental Lecturer in Philosophy at Pembroke College, Oxford. My research
-                    concerned the philosophy and foundations of physics, in particular thermodynamics and statistical
-                    mechanics, and philosophy of science.</p>
+      </section>
+  
+      <section class="about__projects" id="projects">
+        <h3 class="about__projects__title">Projects.</h3>
+        <nav class="about__projects__nav">
+          <h4 href="#" class="about__projects-item"><a href="https://jameswills.org/resources/js/simultaneousEquationApp/SimEqGen.html">Question Generator</a></h4>
+        </nav>
+      </section>
 
-                <p>Follow the links to find an explanation of some of my research and a list of some teaching resources.</p>
+    </nav>
+    
+  </main>
 
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <footer>
-        <p>Web design &copy; James Wills
-            <script type="text/javascript">document.write(new Date().getFullYear());</script>
-        </p>
-
-    </footer>
+  <!-- <footer class="footer">
+    <p>Design &copy; James Wills
+      <script type="text/javascript">document.write(new Date().getFullYear());</script>
+    </p>
+  </footer> -->
 </body>
 
 </html>

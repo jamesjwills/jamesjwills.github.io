@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>BYWIQC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="../slides/reveal.js-master/dist/reveal.css">
+		<link rel="stylesheet" href="../slides/reveal.js-master/dist/theme/night.css" id="theme">
+        <link rel="stylesheet" href="./quantum.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section>
+                    <h2>Bluff Your Way In Quantum Computing</h2>
+                </section>
+
+                <section>
+                    <h2>What is a computer anyway?</h2>
+                    <div class="r-stack">
+                        <div class="fragment fade-in-then-out">
+                            <h4>Classical Computers</h4>
+                            <ul>
+                                <li>State: sequence of classical bits</li>
+                                <li>Operations on that state: logic gates</li>
+                            </ul>
+                        </div>
+                        <div class="fragment fade-in">
+                            <h4>Quantum Computers</h4>
+                            <ul>
+                                <li>State: sequence of quantum bits (qubits)</li>
+                                <li>Operations on that state: quantum gates</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+
+                </section>
+
+                <section>
+                    <h2>Quantum Theory</h2>
+                    
+                        <p class="fragment fade-in">
+                            \[\begin{aligned}
+                            \text{Superposition: } &amp; \alpha|1\rangle + \beta |0\rangle \\
+                            \end{aligned} \]
+                        </p>
+                        <p class="fragment fade-in">
+                            \[\begin{aligned}
+                            \text{Measurement: } &amp; M(\alpha|1\rangle + \beta |0\rangle) \stackrel{\text{Pr} = |\alpha|^2}{\rightarrow} |1\rangle \\
+                            \end{aligned} \]
+                        </p>
+                        <div class="r-stack">
+                            <p class="fragment fade-in-then-out">
+                                \[\begin{aligned}
+                                \text{Entanglement: } &amp; 0_A 1_B 1_C 0_D \\
+                                \end{aligned} \]
+                            </p>
+                            <p class="fragment fade-in">
+                                \[\begin{aligned}
+                                \text{Entanglement: } &amp; |0\rangle_A |1\rangle_B + |1\rangle_A |0\rangle_B
+                                \end{aligned} \]
+                            </p>
+                        </div>
+                    
+                </section>
+                    
+
+
+
+                <section>
+                    <h2>Origins</h2>
+                    
+                        <p>The rule of simulation that I would like to have is that the number of computer elements required to simulate a large physical system is only to be proportional to the space-time volume of the physical system. I don't want to have an explosion. That is, if you say I want to explain this much physics, I can do it exactly and I need a certain-sized computer. If doubling the volume of space and time means I'll need an exponentially larger computer, I consider that against the rules (I make up the rules, I'm allowed to do that).</p>
+                
+                </section>
+
+
+                <section>
+                    <div class="r-stack">
+                        <div class="fragment fade-in-then-out">
+                            <h2>2 Classical bits</h2>
+                            <div class="columns">
+                                <div class="column" style="width: 25%;">\[ 0_A 0_B \]</div>
+                                <div class="column" style="width: 25%;">\[ 0_A 1_B \]</div>
+                                <div class="column" style="width: 25%;">\[ 1_A 0_B \]</div>
+                                <div class="column" style="width: 25%;">\[ 1_A 1_B \]</div>
+                            </div>
+                        </div>
+                        <div class="fragment fade-in">
+                            <h2>2 Qubits</h2>
+                            <div class="r-stack">
+                                <div class="columns fragment fade-in-then-out">
+                                    <div class="column" style="width: 25%;">\[ |0\rangle |0\rangle \]</div>
+                                    <div class="column" style="width: 25%;">\[ |0\rangle |1\rangle \]</div>
+                                    <div class="column" style="width: 25%;">\[ |1\rangle |0\rangle \]</div>
+                                    <div class="column" style="width: 25%;">\[ |1\rangle |1\rangle \]</div>
+                                </div>
+                                <div class="fragment fade-in">
+                                    <p>\[ \alpha|0\rangle |0\rangle + \beta|0\rangle |1\rangle + \gamma|1\rangle |0\rangle + \delta|1\rangle |1\rangle \]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>QCs > CCs?</h2>
+                        <ul>
+                            <li><p class="fragment" data-fragment-index="1">More compact?</p> <p class="fragment" data-fragment-index="5">No</p></li>
+                            <li><p class="fragment" data-fragment-index="2">Easier to build?</p> <p class="fragment" data-fragment-index="6">No!</p></li>
+                            <li><p class="fragment" data-fragment-index="3" >Faster?</p> <p class="fragment" data-fragment-index="7">It depends</p></li>
+                            <li><p class="fragment" data-fragment-index="4">More capable?</p> <p class="fragment" data-fragment-index="8">No</p></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Faster?</h2>
+                        <!-- Algorithmic time complexity:
+                        "efficient": can be solved in polynomial time.
+                        "inefficient": anything involving an exponential. -->
+                        <ul>
+                            <li class="fragment">QCs are not "universally" faster</li>
+                            <li class="fragment">Depends on the algorithm!</li>
+                            <li class="fragment">Nothing to do with the hardware</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>More capable?</h2>
+                        <p>Are they able to solve problems which CCs cannot?</p>
+                        <ol>
+                            <li class="fragment">Classical computers are Turing-complete</li>
+                            <li class="fragment">Classical computations can be simulated on QCs and vice versa</li>
+                            <li class="fragment">Therefore, QCs are Turing complete</li>
+                            <li class="fragment">Therefore, QCs have no computational advantage over CCs</li>
+                        </ol>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>A Philosophical Mystery</h2>
+                        <p class="fragment">What is the explanation for the power of quantum computing?</p>
+                        <ul>
+                            <li class="fragment">Superposition?</li>
+                            <li class="fragment">Entanglement?</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Superposition</h2>
+                        <p class="fragment">Claim: Realising superposition states is necessary and/or sufficient for quantum speed-up.</p>
+                        <p class="fragment">What about classical parallel computation?</p>
+                    
+                    </section>
+
+                    <section>
+                        <h2>Entanglement</h2>
+                        <p class="fragment">Claim: Realising entangled states is necessary and/or sufficient for quantum speed-up.</p>
+
+                    </section>
+
+                </section>
+
+                <section>
+                    <h2>To Bluff Your Way:</h2>
+                    <ul>
+                        <li class="fragment">Describe at least superposition</li>
+                        <li class="fragment">Use superposition to run the "exponential argument"</li>
+                        <li class="fragment">Describe precisely the sense in which QCs > CCs</li>
+                        <li class="fragment">Highlight limitations of QCs</li>
+                    </ul>
+                </section>
+
+                    
+
+            </div>
+
+        </div>
+
+        <script src="../slides/reveal.js-master/dist/reveal.js"></script>
+		<script src="../slides/reveal.js-master/plugin/math/math.js"></script>
+		<script>
+			Reveal.initialize({
+				history: true,
+				transition: 'linear',
+
+				mathjax2: {
+					config: 'TeX-AMS_HTML-full',
+					TeX: {
+						Macros: {
+							R: '\\mathbb{R}',
+							set: [ '\\left\\{#1 \\; ; \\; #2\\right\\}', 2 ]
+						}
+					}
+				},
+
+				// There are three typesetters available
+				// RevealMath.MathJax2 (default)
+				// RevealMath.MathJax3
+				// RevealMath.KaTeX
+				//
+				// More info at https://revealjs.com/math/
+				plugins: [ RevealMath.MathJax2 ]
+			});
+		</script>
+    </body>
+</html>
