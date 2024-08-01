@@ -192,7 +192,7 @@
                         We end up in a situation where the model does not scale manageably with the size of the system; 
                         it scales exponentially. Therefore, as the size of the system increases, it quickly becomes 
                         impossible to model; very quickly, as we scale the physical system, the computers become 
-                        either unbuildable or take too long.
+                        either unbuildable or take too long to run the program.
                     </p>
                     <p>
                         But this is all speaking abstractly. A concrete example of this phenomenon is where we try 
@@ -208,7 +208,7 @@
                         Now consider a two qubit system. Initially, the situation looks similar: we can have four possible 'basis' 
                         states \(|0\rangle_A|0\rangle_B\), \(|0\rangle_A|1\rangle_B\), \(|1\rangle_A|0\rangle_B\) and \(|1\rangle_A|1\rangle_B\).
                         But because of superposition, 
-                        now \(\alpha|00\rangle + \beta|01\rangle + \gamma|10\rangle + \delta|11\rangle\) (where \(\alpha\), \(\beta\), 
+                        now \(\alpha|00\rangle +\) \(\beta|01\rangle +\) \(\gamma|10\rangle +\) \(\delta|11\rangle\) (where \(\alpha\), \(\beta\), 
                         \(\gamma\) and \(\delta\) are complex numbers such that \(|\alpha|^2+|\beta|^2+|\gamma|^2+|\delta|^2=1\)) also counts as a possible 
                         state of the computer, in addition to the four basis states already listed. How many more bits of 
                         information are required now to describe the state of this quantum system? Since we need more bits to 
@@ -292,7 +292,7 @@
                         Quantum computers, as we have already seen, have a fundamentally different build 
                         architecture to classical computers. This fact opens up a whole new landscape of 
                         quantum algorithm design: algorithms which make full use of the qubits, quantum 
-                        logic gates and the uniquely quantum features of superposition and entanglement. 
+                        logic gates and the uniquely quantum features of superposition, entanglement (and interference, but I do not touch on this here).
                     </p>
                     <p>
                         In integer prime factorisation, the most famous context of algorithm design, we 
@@ -301,7 +301,7 @@
                         factorise integers exponentially faster than known classical algorithms can.
                     </p>
                     <p>
-                        Thus, what we have seen, initially at least, that the reason for quantum speed up 
+                        Thus we have seen, initially at least, that the reason for quantum speed up 
                         is not the hardware the computer is built out of but rather the underlying architecture 
                         design of the computer, allowing algorithms to be designed to take full advantage of 
                         that architecture resulting in much more performant algorithms.
@@ -371,7 +371,10 @@
                         parallel computation. It is generally considered uncontroversial that this kind of 'quantum 
                         parallelism' is at least partially responsible for quantum speedup. But there is also 
                         ongoing foundational research into the extent to which entanglement and quantum interference 
-                        (which I have not discussed here) contributes to the quantum speedup in certain cases.
+                        (which I have not discussed here) contributes to the quantum speedup in certain cases. No doubt the 
+                        real answer to this question is that all quantum features are to some extent 'responsible'. But can't we 
+                        do better than this? Might it be the case that some algorithms leverage superposition for the quantum speedup, 
+                        while for others entanglement or interference play a more significant role?
                     </p>
                 </div>
                 <div id="bluff-your-way">    
@@ -392,7 +395,7 @@
                         <ul>
                             <li><a href="https://s2.smu.edu/~mitch/class/5395/papers/feynman-quantum-1981.pdf" target="_blank">Richard Feynman: Simulating Physics with Computers</a></li>
                             <li><a href="https://plato.stanford.edu/entries/qt-quantcomp/" target="_blank">Michael Cuffaro: Quantum Computing (SEP entry) </a></li>
-                            <li><a href="https://scottaaronson.blog/" target="_blank">Scott Aaronson Blog</a></li>
+                            <li><a href="https://scottaaronson.blog/" target="_blank">Scott Aaronson: Blog</a></li>
                             <li><a href="https://www.scientificamerican.com/article/the-limits-of-quantum-computers/">Scott Aaronson: The Limits of Quantum Computers</a></li>
                         </ul>
                 <div>
