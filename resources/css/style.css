@@ -108,19 +108,15 @@ a {
   background-color:oldlace;
 }
 
-.about__projects p {
-  padding: 0 6rem;
-}
-
 .about__projects ol {
   padding: 0 6rem;
-  padding-left: 10rem;
+  padding-left: 3rem;
 }
 
 .about__projects ul {
   list-style: none;
   padding: 0 6rem;
-  padding-left: 10rem;
+  padding-left: 3rem;
   font-family: Merriweather;
   line-height: 2;
   text-align: justify;
@@ -158,6 +154,16 @@ a {
   background-color: oldlace;
 }
 
+.blurb__contents {
+  display: none;
+}
+
+.blurb__title {
+  display: flex;
+}
+
+/*-------SCROLL BUTTON-------*/
+
 #scrollToTopBtn {
   display: none;
   position: fixed;
@@ -181,22 +187,9 @@ a {
   font-size: 0.5rem;
 } */
 
-
-
 /*-----MEDIA QUERIES------*/
-/* 
-@media screen and (min-width: 768px) {
-  .table-of-contents {
-    columns: 2;
-  }
-}
 
-@media screen and (min-width: 1200px) {
-  .table-of-contents {
-    columns: 3;
-  }
-} */
-
+/*styles will apply if screen is 481px or wider*/
 @media screen and (min-width: 481px) {
   html {
     font-size: 15px;
@@ -229,8 +222,32 @@ a {
     padding: 0 0.8rem;
     text-align: left;
   }
+
+  .blurb__contents {
+    display: flex;
+  }
+
+  .blurb__title {
+    display: none;
+  }
+
+  .about__projects p {
+    padding: 0 3rem;
+  }
+
+  .about__projects ol {
+    padding-left: 6rem;
+  }
+  
+  .about__projects ul {
+    padding-left: 6rem;
+  
+  }
+
+ 
 }
 
+/*styles in {} will apply if the viewport width is 768 pixels or wider*/
 @media screen and (min-width: 768px) {
   html {
     font-size: 17px;
@@ -249,5 +266,18 @@ a {
   body {
     padding: 3rem 10rem;
   }
+
+  .about__projects p {
+    padding: 0 6rem;
+  }
+
+  .about__projects ol {
+    padding-left: 9rem;
+  }
+  
+  .about__projects ul {
+    padding-left: 9rem;
+  }
+
 }
 
