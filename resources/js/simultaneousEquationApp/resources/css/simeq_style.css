@@ -1,0 +1,152 @@
+html {
+  font-size: 12px;
+}
+
+body {
+  font-family: 'Merriweather', serif;
+  line-height: 2;
+  padding: 0.8rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.header {
+  display: flex;
+  border-top: 2px solid oldlace;
+  padding: 0.8rem;
+  height: 10vh;
+}
+
+.header__name {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.header__initials {
+  display: none;
+  flex: 1;
+  align-items: center;
+}
+
+.header__full-stop {
+  color: navajowhite;
+}
+
+.header__socials {
+  display: flex;
+  flex: 0.3;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__socials-item {
+  font-size: 2.5rem;
+  text-decoration: none;
+  color:black;
+}
+
+.header__socials-item:hover {
+  color: navajowhite;
+}
+
+.about__intro {
+  border-bottom: 2px solid oldlace;
+  border-top: 2px solid oldlace;
+  padding: 0.8rem 0;
+}
+
+.about__content {
+  padding: 0.8rem 0;
+}
+
+.about__projects {
+  padding: 0 0.8rem;
+  background-color: oldlace;
+}
+
+.box {
+  background-color: white;
+  padding: 0.8rem;
+  margin-top: 1rem;
+}
+
+button {
+  font-family: 'IBM Plex Mono', monospace;
+  background-color: white;
+  border: 2px solid black;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: oldlace;
+}
+
+.hidden-content {
+  display: none;
+}
+
+@media screen and (min-width: 481px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    padding: 3rem 3rem;
+  }
+
+  .header__name {
+    display: none;
+  }
+
+  .header__initials {
+    display: flex;
+  }
+
+  .about__intro {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 17px;
+  }
+
+  body {
+    padding: 3rem 5rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 20px;
+  }
+  
+  body {
+    padding: 3rem 10rem;
+  }
+}
