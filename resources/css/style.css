@@ -96,13 +96,13 @@ a {
   gap: 1rem;
 }
 
-.about__research, .about__projects {
+.about__research, .about__projects, .about__teaching {
   padding: 0 0.8rem;
   flex: 1;
   min-width: 0;
 }
 
-.about__research, .about__projects, .about__research__nav, .about__projects__nav {
+.about__research, .about__projects, .about__teaching, .about__research__nav, .about__projects__nav, .about__teaching__nav {
   /* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); */
 
   background-color:oldlace;
@@ -123,7 +123,7 @@ a {
 
 }
 
-.about__research-item, .about__projects-item {
+.about__research-item, .about__projects-item, .about__teaching-item {
   text-decoration: none;
   color:black;
   background-color: white;
