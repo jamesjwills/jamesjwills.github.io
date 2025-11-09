@@ -26,7 +26,7 @@ $$
 0_{A}1_{B}1_{C}0_{D} 
 $$
 
-This says: bit $A$ has state , bit $B$ has state 1, bit $C$ has state $1$ and bit $D$ has state $0$. This makes the state of the computer as a whole, the global state, just the collection of the individual states of the classical bits. This is all there is to say about the state of classical computers.
+This says: bit $A$ has state 0, bit $B$ has state 1, bit $C$ has state $1$ and bit $D$ has state $0$. This makes the state of the computer as a whole, the global state, just the collection of the individual states of the classical bits. This is all there is to say about the state of classical computers.
 
 For a 4-qubit quantum computer, it is possible to have an exactly analogous situation: 
 
