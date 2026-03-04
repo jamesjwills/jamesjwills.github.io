@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Deterministic LLMs</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="./slides/reveal.js-master/dist/reveal.css">
+		<link rel="stylesheet" href="./slides/reveal.js-master/dist/theme/night.css" id="theme">
+        <link rel="stylesheet" href="./quantum.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section>
+                    <h2>Deterministic LLMs</h2>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Temperature = 0</h3>
+                        <ul>
+                            <li class="fragment">LLMs compute a probability distribution over the next token, given the previous context.</li>
+                            <li class="fragment">Next token is sampled randomly from this distribution.</li>
+                            <li class="fragment">Temperature&nbsp;0 (greedy decoding), the model always picks the most probable token.</li>
+                            <!-- <li class="fragment">This is determinism!</li> -->
+                        </ul>
+
+                    </section>
+                    <section>
+                        <div class="columns" style="margin-top: 1.5rem;">
+                            <div class="column" style="width: 50%;">
+                                <h4>Normal sampling</h4>
+                                <svg viewBox="0 0 260 140" width="100%" height="140">
+                                    <line x1="30" y1="15" x2="30" y2="115" stroke="#888" stroke-width="2" />
+                                    <line x1="30" y1="115" x2="230" y2="115" stroke="#888" stroke-width="2" />
+                                    <rect x="40"  y="75"  width="20" height="40" fill="#666" />
+                                    <rect x="75"  y="45"  width="20" height="70" fill="#666" />
+                                    <rect x="110" y="25"  width="20" height="90" fill="#999" />
+                                    <rect x="145" y="55"  width="20" height="60" fill="#666" />
+                                    <rect x="180" y="80"  width="20" height="35" fill="#666" />
+                                    <rect x="75" y="45" width="20" height="70" fill="#ff9800" fill-opacity="0.7" />
+                                    <line x1="85" y1="125" x2="85" y2="115" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-normal)" />
+                                    <text x="85" y="136" text-anchor="middle" font-size="10" fill="#fff">sampled token</text>
+                                    <defs>
+                                        <marker id="arrow-normal" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                                            <path d="M0,0 L6,3 L0,6 z" fill="#ff9800" />
+                                        </marker>
+                                    </defs>
+                                    <text x="130" y="10" text-anchor="middle" font-size="11" fill="#fff">Probabilities over next tokens</text>
+                                </svg>
+                            </div>
+                            <div class="column" style="width: 50%;">
+                                <h4>Greedy decoding</h4>
+                                <svg viewBox="0 0 260 140" width="100%" height="140">
+                                    <line x1="30" y1="15" x2="30" y2="115" stroke="#888" stroke-width="2" />
+                                    <line x1="30" y1="115" x2="230" y2="115" stroke="#888" stroke-width="2" />
+                                    <rect x="40"  y="75"  width="20" height="40" fill="#666" />
+                                    <rect x="75"  y="45"  width="20" height="70" fill="#666" />
+                                    <rect x="110" y="25"  width="20" height="90" fill="#4caf50" />
+                                    <rect x="145" y="55"  width="20" height="60" fill="#666" />
+                                    <rect x="180" y="80"  width="20" height="35" fill="#666" />
+                                    <line x1="120" y1="125" x2="120" y2="115" stroke="#4caf50" stroke-width="2" marker-end="url(#arrow-greedy)" />
+                                    <text x="120" y="136" text-anchor="middle" font-size="10" fill="#fff">always pick max</text>
+                                    <defs>
+                                        <marker id="arrow-greedy" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                                            <path d="M0,0 L6,3 L0,6 z" fill="#4caf50" />
+                                        </marker>
+                                    </defs>
+                                    <text x="130" y="10" text-anchor="middle" font-size="11" fill="#fff">Same distribution, different rule</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <ul>
+                            <!-- <li class="fragment">LLMs compute a probability distribution over the next token, given the previous context.</li> -->
+                            <!-- <li class="fragment">Next token is sampled randomly from this distribution.</li> -->
+                            <!-- <li class="fragment">With temperature&nbsp;0 (greedy decoding), the model always picks the single most probable token.</li> -->
+                            <li class="fragment">Greedy decoding is determinism!</li>
+                            <li class="fragment">And yet...</li>
+                        </ul>
+                    </section>
+
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Floating point non-associativity</h2>
+                        <ul>
+                            <li class="fragment"><strong>FP</strong>: stored as \(\pm \text{mantissa} \times \text{base}^{\text{exponent}}\).</li>
+                            <li class="fragment"><strong>Associativity</strong>: \((a \star b) \star c = a \star (b \star c)\).</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Example</h2>
+                        <ul>
+                            <li class="fragment">Let \(a = 1.23\times 10^{4}\), \(b = -1.23\times 10^{4}\), \(c = 1.23\).</li>
+                            <li class="fragment">\((a+b)+c = 0 + 1.23 = 1.23\)</li>
+                            <li class="fragment">\(a+(b+c)\) = 1.23 + (-1.23) = 0</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Order of addition matters</h3>
+                        <div class="r-stretch" style="display: flex; align-items: center; justify-content: center;">
+                            <pre class="mermaid" style="background: transparent; margin: 0;">flowchart TB
+  subgraph A["Schedule A: cores finish 1 → 2 → 3"]
+    direction TB
+    A1["Core 1: a"]
+    A2["Core 2: b"]
+    A3["Core 3: c"]
+    A4["(a+b)"]
+    A5["(a+b)+c = 1.23"]
+    A1 --> A4
+    A2 --> A4
+    A4 --> A5
+    A3 --> A5
+  end
+  subgraph B["Schedule B: cores finish 3 → 1 → 2"]
+    direction TB
+    B1["Core 1: a"]
+    B2["Core 2: b"]
+    B3["Core 3: c"]
+    B4["(b+c)"]
+    B5["a+(b+c) = 0"]
+    B2 --> B4
+    B3 --> B4
+    B1 --> B5
+    B4 --> B5
+  end
+                            </pre>
+                        </div>
+                        <p style="font-size: 0.7em; color: #888; margin-top: 0.5rem;">Same inputs (a, b, c); different completion order → different reduction → different result.</p>
+                    </section>
+
+                    <section>
+                        <h3>Deterministic reductions vs throughput</h3>
+                        <ul>
+                            <li class="fragment">Just fix the summation order of the cores?</li>
+                            <li class="fragment">Always combine results from core&nbsp;A, then core&nbsp;B, then core&nbsp;C, even if some finish earlier.</li>
+                            <!-- <li class="fragment">This removes one source of non-determinism, but it is slower.</li> -->
+                            <li class="fragment">Throughput > determinism.</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Batching</h3>
+                        <ul>
+                            <li class="fragment">Prompts of different lengths (e.g. 100 tokens vs 500 tokens).</li>
+                            <li class="fragment">Shorter prompts are padded out with special padding tokens so everything fits into the same matrix.</li>
+                            <li class="fragment">These larger matrices are 'tiled' and computation is partitioned across GPU cores.</li>
+                            <li class="fragment">Results in a different path through floating point operations and different rounding \(\rightarrow\) different response to the prompt.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Batching: padded matrix</h3>
+                        <p style="font-size: 0.85em; margin-bottom: 0.8em;">Batch of 5 prompts; max length = 5 tokens → 5×5 matrix. Shorter prompts padded with PAD.</p>
+                        <figure class="r-stretch" style="margin: 0; display: flex; align-items: center; justify-content: center;">
+                            <table class="batch-matrix" style="border-collapse: collapse; font-family: monospace; font-size: 0.95rem;">
+                                <thead>
+                                    <tr>
+                                        <th style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; font-weight: normal;"></th>
+                                        <th style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; font-weight: normal;">0</th>
+                                        <th style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; font-weight: normal;">1</th>
+                                        <th style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; font-weight: normal;">2</th>
+                                        <th style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; font-weight: normal;">3</th>
+                                        <th style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; font-weight: normal;">4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; text-align: right;">prompt 0</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">42</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">89</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; text-align: right;">prompt 1</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">12</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">77</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">234</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">891</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; text-align: right;">prompt 2</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">301</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; text-align: right;">prompt 3</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">55</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">23</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">1024</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">88</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center; background: #3d3d2d; color: #b0b060;">PAD</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; color: #aaa; text-align: right;">prompt 4</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">7</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">1024</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">156</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">302</td>
+                                        <td style="border: 1px solid #666; padding: 0.35em 0.5em; text-align: center;">445</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </figure>
+                        <p style="font-size: 0.75em; color: #888; margin-top: 0.6em;">Columns = token positions (fixed by longest prompt). Rows = batch dimension. PAD cells are masked out in attention.</p>
+                    </section>
+
+                    <section>
+                        <ul>
+                            <li class="fragment">From GPU POV: computation can be deterministic.</li>
+                            <li class="fragment">User has no control over the batch!</li>
+                            <li class="fragment">Different batch compositions = different computations for “your” prompt.</li>
+                            <li class="fragment">So even with temperature&nbsp;0 and deterministic kernels, responses can still appear non-deterministic.</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Summary</h3>
+                    <ul>
+                        <li class="fragment">Temperature&nbsp;0 (greedy decoding) does not guarantee identical outputs for identical inputs.</li>
+                        <li class="fragment">Floating point non-associativity in highly parallel GPU computations introduces tiny numeric differences.</li>
+                        <li class="fragment">Deterministic reduction algorithms can reduce this, but at a performance cost.</li>
+                        <li class="fragment">Batching and padding mean users see apparent indeterminism they cannot directly control.</li>
+                    </ul>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="./slides/reveal.js-master/dist/reveal.js"></script>
+		<script src="./slides/reveal.js-master/plugin/math/math.js"></script>
+		<script src="./slides/mermaid/mermaid.min.js"></script>
+		<script>
+			Reveal.initialize({
+				history: true,
+				transition: 'linear',
+
+				mathjax2: {
+					config: 'TeX-AMS_HTML-full',
+					TeX: {
+						Macros: {
+							R: '\\mathbb{R}',
+							set: [ '\\left\\{#1 \\; ; \\; #2\\right\\}', 2 ]
+						}
+					}
+				},
+
+				// There are three typesetters available
+				// RevealMath.MathJax2 (default)
+				// RevealMath.MathJax3
+				// RevealMath.KaTeX
+				//
+				// More info at https://revealjs.com/math/
+				plugins: [ RevealMath.MathJax2 ]
+			});
+
+			// Render Mermaid diagrams (e.g. core completion scenario)
+			mermaid.initialize({
+				startOnLoad: false,
+				theme: 'dark',
+				themeVariables: { primaryTextColor: '#fff', primaryBorderColor: '#6b9bd1', lineColor: '#888', secondaryBorderColor: '#555' }
+			});
+			Reveal.on('ready', function () { mermaid.run({ nodes: document.querySelectorAll('.mermaid') }); });
+		</script>
+    </body>
+</html>
+
