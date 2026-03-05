@@ -17,7 +17,7 @@
 
                 <section>
                     <section>
-                        <h3>Temperature = 0</h3>
+                        <h3>Temperature</h3>
                         <ul>
                             <li class="fragment">LLMs compute a probability distribution over the next token, given the previous context.</li>
                             <li class="fragment">Next token is sampled randomly from this distribution.</li>
@@ -81,25 +81,22 @@
 
                 </section>
 
+
                 <section>
                     <section>
-                        <h2>Floating point non-associativity</h2>
-                        <ul>
-                            <li class="fragment"><strong>FP</strong>: stored as \(\pm \text{mantissa} \times \text{base}^{\text{exponent}}\).</li>
-                            <li class="fragment"><strong>Associativity</strong>: \((a \star b) \star c = a \star (b \star c)\).</li>
-                        </ul>
+                        <p>\([1.34,6.754,56.754,0.3461,1.23,4.56]\)</p>
                     </section>
                     <section>
-                        <h2>Example</h2>
+                        <h3>Floating Point...</h3>
                         <ul>
                             <li class="fragment">Let \(a = 1.23\times 10^{4}\), \(b = -1.23\times 10^{4}\), \(c = 1.23\).</li>
                             <li class="fragment">\((a+b)+c = 0 + 1.23 = 1.23\)</li>
-                            <li class="fragment">\(a+(b+c)\) = 1.23 + (-1.23) = 0</li>
+                            <li class="fragment">\(a+(b+c) = 1.23\times 10^{4} + (-1.23\times 10^{4}) = 0\)</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3>Order of addition matters</h3>
+                        <h3>...Non-associativity</h3>
                         <div class="r-stretch" style="display: flex; align-items: center; justify-content: center;">
                             <pre class="mermaid" style="background: transparent; margin: 0;">flowchart TB
   subgraph A["Schedule A: cores finish 1 → 2 → 3"]
@@ -114,7 +111,7 @@
     A4 --> A5
     A3 --> A5
   end
-  subgraph B["Schedule B: cores finish 3 → 1 → 2"]
+  subgraph B["Schedule B: cores finish 3 → 2 → 1"]
     direction TB
     B1["Core 1: a"]
     B2["Core 2: b"]
@@ -130,31 +127,30 @@
                         </div>
                         <p style="font-size: 0.7em; color: #888; margin-top: 0.5rem;">Same inputs (a, b, c); different completion order → different reduction → different result.</p>
                     </section>
-
                     <section>
                         <h3>Deterministic reductions vs throughput</h3>
                         <ul>
                             <li class="fragment">Just fix the summation order of the cores?</li>
-                            <li class="fragment">Always combine results from core&nbsp;A, then core&nbsp;B, then core&nbsp;C, even if some finish earlier.</li>
+                            <li class="fragment">Always combine results from core 1, then core 2, then core 3, even if some finish earlier.</li>
                             <!-- <li class="fragment">This removes one source of non-determinism, but it is slower.</li> -->
-                            <li class="fragment">Throughput > determinism.</li>
+                            <li class="fragment">Throughput \(>\) determinism.</li>
                         </ul>
                     </section>
                 </section>
 
                 <section>
                     <section>
-                        <h3>Batching</h3>
+                        <h3 class="fragment">Batching</h3>
                         <ul>
                             <li class="fragment">Prompts of different lengths (e.g. 100 tokens vs 500 tokens).</li>
-                            <li class="fragment">Shorter prompts are padded out with special padding tokens so everything fits into the same matrix.</li>
-                            <li class="fragment">These larger matrices are 'tiled' and computation is partitioned across GPU cores.</li>
+                            <li class="fragment">Shorter prompts padded out with special padding tokens to fit a matrix.</li>
+                            <li class="fragment">Matrices are 'tiled' and computation partitioned across GPU cores.</li>
                             <li class="fragment">Results in a different path through floating point operations and different rounding \(\rightarrow\) different response to the prompt.</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3>Batching: padded matrix</h3>
+                        <h3>Example</h3>
                         <p style="font-size: 0.85em; margin-bottom: 0.8em;">Batch of 5 prompts; max length = 5 tokens → 5×5 matrix. Shorter prompts padded with PAD.</p>
                         <figure class="r-stretch" style="margin: 0; display: flex; align-items: center; justify-content: center;">
                             <table class="batch-matrix" style="border-collapse: collapse; font-family: monospace; font-size: 0.95rem;">
@@ -216,8 +212,9 @@
                     </section>
 
                     <section>
+                        <h3>Batch-indeterminism</h3>
                         <ul>
-                            <li class="fragment">From GPU POV: computation can be deterministic.</li>
+                            <li class="fragment">GPU computation can be deterministic.</li>
                             <li class="fragment">User has no control over the batch!</li>
                             <li class="fragment">Different batch compositions = different computations for “your” prompt.</li>
                             <li class="fragment">So even with temperature&nbsp;0 and deterministic kernels, responses can still appear non-deterministic.</li>
@@ -228,10 +225,10 @@
                 <section>
                     <h3>Summary</h3>
                     <ul>
-                        <li class="fragment">Temperature&nbsp;0 (greedy decoding) does not guarantee identical outputs for identical inputs.</li>
-                        <li class="fragment">Floating point non-associativity in highly parallel GPU computations introduces tiny numeric differences.</li>
-                        <li class="fragment">Deterministic reduction algorithms can reduce this, but at a performance cost.</li>
-                        <li class="fragment">Batching and padding mean users see apparent indeterminism they cannot directly control.</li>
+                        <li class="fragment">Greedy decoding does not guarantee determinism.</li>
+                        <li class="fragment">Floating point non-associativity, indeterministic reduction algorithms.</li>
+                        <li class="fragment">Can use deterministic reduction algorithms, but at a performance cost.</li>
+                        <li class="fragment">Batching means some indeterminism is beyond hardware control.</li>
                     </ul>
                 </section>
 
