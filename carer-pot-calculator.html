@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carer Pay Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --surface: #fffdf8;
+    --surface2: #f0ebe0;
+    --border: #d4c9b0;
+    --accent: #2d5a27;
+    --accent-light: #4a8a42;
+    --accent-pale: #e8f2e6;
+    --text: #1a1a14;
+    --text-muted: #6b6555;
+    --danger: #c0392b;
+    --danger-pale: #fdf0ee;
+    --gold: #b8860b;
+    --gold-pale: #fdf8e8;
+    --shadow: 0 2px 12px rgba(45,90,39,0.08);
+    --shadow-lg: 0 8px 32px rgba(45,90,39,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* Subtle texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d5a27' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: var(--accent-pale);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(45,90,39,0.2);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 300;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .card-title .icon {
+    width: 28px;
+    height: 28px;
+    background: var(--accent-pale);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  /* Pot input */
+  .pot-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .input-wrap {
+    position: relative;
+    flex: 1;
+  }
+
+  .input-prefix {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    pointer-events: none;
+  }
+
+  input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 0.7rem 0.9rem 0.7rem 2rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -moz-appearance: textfield;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  input[type="number"]:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,90,39,0.1);
+  }
+
+  input.no-prefix {
+    padding-left: 0.9rem;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(45,90,39,0.25); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--accent-pale); border-color: var(--accent); }
+
+  .btn-danger {
+    background: transparent;
+    color: var(--danger);
+    border: 1.5px solid #e8c5c2;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+  }
+  .btn-danger:hover { background: var(--danger-pale); }
+
+  .btn-lg {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+
+  /* Carers table */
+  .carers-header {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 40px;
+    gap: 0.5rem;
+    padding: 0 0.25rem 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.75rem;
+  }
+
+  .carer-row {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 40px;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    animation: slideIn 0.2s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .carer-row input { font-size: 0.88rem; }
+
+  .add-carer-row {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Summary bar */
+  .summary-bar {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .summary-pill {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+  }
+
+  .summary-pill .val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--text);
+    display: block;
+  }
+
+  .summary-pill .lbl {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .summary-pill.accent .val { color: var(--accent); }
+  .summary-pill.warn .val { color: var(--gold); }
+  .summary-pill.danger .val { color: var(--danger); }
+
+  .divider {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+  }
+
+  /* Results */
+  .results-card {
+    background: var(--surface);
+    border: 1.5px solid var(--accent);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .results-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .results-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .results-table thead {
+    background: var(--accent-pale);
+  }
+
+  .results-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  .results-table td {
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .results-table tbody tr:last-child td { border-bottom: none; }
+
+  .results-table tbody tr:hover { background: var(--surface2); }
+
+  .results-table .mono {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+  }
+
+  .results-table .pay-cell {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+
+  .results-table tfoot td {
+    padding: 0.85rem 1rem;
+    background: var(--gold-pale);
+    border-top: 2px solid var(--gold);
+    font-weight: 500;
+  }
+
+  .results-table tfoot .total-pay {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+  }
+
+  /* Alert box */
+  .alert {
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .alert-warn { background: var(--gold-pale); border: 1px solid #e0c060; color: #7a5c00; }
+  .alert-danger { background: var(--danger-pale); border: 1px solid #e8c5c2; color: var(--danger); }
+  .alert-success { background: var(--accent-pale); border: 1px solid rgba(45,90,39,0.25); color: var(--accent); }
+
+  .alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* Pot remaining bar */
+  .progress-wrap {
+    margin-top: 0.75rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 0.35rem;
+  }
+
+  .progress-track {
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 99px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease, background 0.3s;
+  }
+
+  .progress-fill.ok { background: var(--accent); }
+  .progress-fill.over { background: var(--danger); }
+
+  /* Actions row */
+  .actions-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  /* Distribute mode toggle */
+  .mode-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .mode-btn {
+    flex: 1;
+    min-width: 160px;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+
+  .mode-btn .mode-title {
+    font-weight: 500;
+    font-size: 0.88rem;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .mode-btn .mode-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+  }
+
+  .mode-btn.active {
+    border-color: var(--accent);
+    background: var(--accent-pale);
+  }
+
+  .mode-btn.active .mode-title { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 540px) {
+    .carers-header, .carer-row {
+      grid-template-columns: 1fr 80px 80px 34px;
+      gap: 0.35rem;
+    }
+    .summary-bar { gap: 0.5rem; }
+    .summary-pill .val { font-size: 1.2rem; }
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; padding: 0; }
+    .no-print { display: none !important; }
+    .results-card { border: 1px solid #ccc; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="header-badge">Pay Calculator</div>
+    <h1>Carer <em>Pot</em> Calculator</h1>
+    <p class="subtitle">Distribute a fixed budget fairly across carers based on hours worked</p>
+  </header>
+
+  <!-- Step 1: Pot -->
+  <div class="card no-print">
+    <div class="card-title">
+      <span class="icon">£</span>
+      Total Budget Pot
+    </div>
+    <div class="pot-row">
+      <div class="input-wrap">
+        <span class="input-prefix">£</span>
+        <input type="number" id="pot" placeholder="e.g. 5000" min="0" step="0.01" oninput="recalculate()">
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Distribution mode -->
+  <div class="card no-print">
+    <div class="card-title">
+      <span class="icon">⚖</span>
+      How to Distribute the Pot
+    </div>
+    <div class="mode-row">
+      <!-- <div class="mode-btn active" id="mode-weighted" onclick="setMode('weighted')">
+        <span class="mode-title">Weighted by Rate &amp; Hours</span>
+        <span class="mode-desc">Each carer's share reflects their hourly rate × hours. Higher rate or more hours = larger share.</span>
+      </div>
+      <div class="mode-btn" id="mode-hours" onclick="setMode('hours')">
+        <span class="mode-title">Hours Only (Equal Rate)</span>
+        <span class="mode-desc">Pot split purely by hours worked. Ignore individual rates — everyone earns the same effective rate.</span>
+      </div> -->
+      <div class="mode-btn" id="mode-exact" onclick="setMode('exact')">
+        <span class="mode-title">Exact Rates (Check Budget)</span>
+        <span class="mode-desc">Pay each carer their exact hourly rate × hours. Shows if the pot covers the total cost.</span>
+      </div>
+    </div>
+    <!-- <div id="mode-explanation" class="alert alert-success" style="margin-top:0">
+      <span class="alert-icon">ℹ</span>
+      <span id="mode-explanation-text"></span>
+    </div> -->
+  </div>
+
+  <!-- Step 3: Carers -->
+  <div class="card no-print">
+    <div class="card-title">
+      <span class="icon">👤</span>
+      Carers
+    </div>
+
+    <div class="carers-header">
+      <div>Name</div>
+      <div>Hours</div>
+      <div>Rate (£/hr)</div>
+      <div></div>
+    </div>
+
+    <div id="carers-list"></div>
+
+    <div class="add-carer-row">
+      <button class="btn btn-ghost" onclick="addCarer()">＋ Add Carer</button>
+    </div>
+  </div>
+
+  <!-- Live Summary -->
+  <div class="summary-bar no-print" id="summary-bar">
+    <div class="summary-pill">
+      <span class="val" id="s-carers">—</span>
+      <span class="lbl">Carers</span>
+    </div>
+    <div class="divider"></div>
+    <div class="summary-pill">
+      <span class="val" id="s-hours">—</span>
+      <span class="lbl">Total Hours</span>
+    </div>
+    <div class="divider"></div>
+    <div class="summary-pill accent">
+      <span class="val" id="s-pot">£—</span>
+      <span class="lbl">Pot</span>
+    </div>
+    <div class="divider"></div>
+    <div class="summary-pill" id="s-remaining-pill">
+      <span class="val" id="s-remaining">£—</span>
+      <span class="lbl" id="s-remaining-lbl">Unallocated</span>
+    </div>
+  </div>
+
+  <!-- Calculate button -->
+  <div class="actions-row no-print">
+    <button class="btn btn-primary btn-lg" onclick="calculate()">Calculate Pay ↓</button>
+    <button class="btn btn-ghost" onclick="resetAll()">Reset</button>
+  </div>
+
+  <!-- Results -->
+  <div id="results" style="margin-top:1.5rem; display:none;"></div>
+
+</div>
+
+<script>
+  let mode = 'weighted';
+  let carerCount = 0;
+  let carerIds = [];
+
+  const modeExplanations = {
+    weighted: 'Each carer receives a share of the pot proportional to their <strong>rate × hours</strong>. This preserves relative pay differentials while fitting the pot exactly.',
+    hours: 'The pot is split by <strong>hours worked only</strong>. All carers earn the same effective hourly rate from the pot, regardless of their listed rates.',
+    exact: 'Each carer is paid their <strong>exact rate × hours</strong>. This checks whether the pot is sufficient to cover everyone.'
+  };
+
+  function setMode(m) {
+    mode = m;
+    ['weighted','hours','exact'].forEach(id => {
+      document.getElementById('mode-' + id).classList.toggle('active', id === m);
+    });
+    document.getElementById('mode-explanation-text').innerHTML = modeExplanations[m];
+    recalculate();
+  }
+
+  function addCarer(name='', hours='', rate='') {
+    const id = ++carerCount;
+    carerIds.push(id);
+    const list = document.getElementById('carers-list');
+    const row = document.createElement('div');
+    row.className = 'carer-row';
+    row.id = 'carer-' + id;
+    row.innerHTML = `
+      <input type="text" class="no-prefix" placeholder="Carer name" value="${name}" oninput="recalculate()" id="name-${id}">
+      <div class="input-wrap">
+        <input type="number" class="no-prefix" placeholder="0" min="0" step="0.5" value="${hours}" oninput="recalculate()" id="hours-${id}">
+      </div>
+      <div class="input-wrap">
+        <span class="input-prefix" style="font-size:0.85rem">£</span>
+        <input type="number" placeholder="0.00" min="0" step="0.01" value="${rate}" oninput="recalculate()" id="rate-${id}">
+      </div>
+      <button class="btn btn-danger" onclick="removeCarer(${id})" title="Remove">✕</button>
+    `;
+    list.appendChild(row);
+    recalculate();
+  }
+
+  function removeCarer(id) {
+    const row = document.getElementById('carer-' + id);
+    if (row) row.remove();
+    carerIds = carerIds.filter(x => x !== id);
+    recalculate();
+  }
+
+  function getCarers() {
+    return carerIds
+      .filter(id => document.getElementById('carer-' + id))
+      .map(id => ({
+        id,
+        name: (document.getElementById('name-' + id)?.value || '').trim() || `Carer ${id}`,
+        hours: parseFloat(document.getElementById('hours-' + id)?.value) || 0,
+        rate: parseFloat(document.getElementById('rate-' + id)?.value) || 0,
+      }));
+  }
+
+  function getPot() {
+    return parseFloat(document.getElementById('pot').value) || 0;
+  }
+
+  function fmt(n) {
+    return '£' + n.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  }
+
+  function recalculate() {
+    const pot = getPot();
+    const carers = getCarers();
+    const totalHours = carers.reduce((s, c) => s + c.hours, 0);
+
+    document.getElementById('s-carers').textContent = carers.length;
+    document.getElementById('s-hours').textContent = totalHours.toLocaleString('en-GB', {maximumFractionDigits: 1});
+    document.getElementById('s-pot').textContent = pot > 0 ? fmt(pot) : '£—';
+
+    let allocated = 0;
+    if (mode === 'exact') {
+      allocated = carers.reduce((s, c) => s + c.hours * c.rate, 0);
+    } else {
+      allocated = pot; // fully distributed
+    }
+
+    const remaining = pot - allocated;
+    const remEl = document.getElementById('s-remaining');
+    const remLbl = document.getElementById('s-remaining-lbl');
+    const remPill = document.getElementById('s-remaining-pill');
+
+    if (mode === 'exact' && pot > 0) {
+      remEl.textContent = fmt(Math.abs(remaining));
+      remLbl.textContent = remaining >= 0 ? 'Pot surplus' : 'Pot shortfall';
+      remPill.className = 'summary-pill ' + (remaining < 0 ? 'danger' : (remaining > 0 ? 'warn' : 'accent'));
+    } else {
+      remEl.textContent = pot > 0 ? '£0.00' : '£—';
+      remLbl.textContent = 'Unallocated';
+      remPill.className = 'summary-pill accent';
+    }
+  }
+
+  function calculate() {
+    const pot = getPot();
+    const carers = getCarers();
+
+    const resultsDiv = document.getElementById('results');
+
+    if (pot <= 0) {
+      resultsDiv.style.display = 'block';
+      resultsDiv.innerHTML = `<div class="alert alert-danger"><span class="alert-icon">⚠</span> Please enter a total budget pot amount.</div>`;
+      return;
+    }
+    if (carers.length === 0) {
+      resultsDiv.style.display = 'block';
+      resultsDiv.innerHTML = `<div class="alert alert-danger"><span class="alert-icon">⚠</span> Please add at least one carer.</div>`;
+      return;
+    }
+
+    let pays = [];
+    let totalHours = carers.reduce((s, c) => s + c.hours, 0);
+    let alert = '';
+
+    if (mode === 'weighted') {
+      const weights = carers.map(c => c.hours * (c.rate || 1));
+      const totalWeight = weights.reduce((s, w) => s + w, 0);
+      if (totalWeight === 0) {
+        resultsDiv.style.display = 'block';
+        resultsDiv.innerHTML = `<div class="alert alert-danger"><span class="alert-icon">⚠</span> Please enter hours and/or rates for carers.</div>`;
+        return;
+      }
+      pays = carers.map((c, i) => ({ ...c, pay: pot * weights[i] / totalWeight, weight: weights[i], effRate: totalWeight > 0 ? (pot * weights[i] / totalWeight) / (c.hours || 1) : 0 }));
+
+    } else if (mode === 'hours') {
+      if (totalHours === 0) {
+        resultsDiv.style.display = 'block';
+        resultsDiv.innerHTML = `<div class="alert alert-danger"><span class="alert-icon">⚠</span> Please enter hours for at least one carer.</div>`;
+        return;
+      }
+      const effRate = pot / totalHours;
+      pays = carers.map(c => ({ ...c, pay: pot * c.hours / totalHours, effRate }));
+
+    } else { // exact
+      pays = carers.map(c => ({ ...c, pay: c.hours * c.rate, effRate: c.rate }));
+      const total = pays.reduce((s, p) => s + p.pay, 0);
+      const diff = pot - total;
+      if (diff < -0.005) {
+        alert = `danger:The pot is <strong>${fmt(Math.abs(diff))} short</strong> of covering all carers at their exact rates. Total cost: ${fmt(total)}, Pot: ${fmt(pot)}.`;
+      } else if (diff > 0.005) {
+        alert = `warn:The pot has a <strong>surplus of ${fmt(diff)}</strong> after paying all carers at exact rates. Total cost: ${fmt(total)}, Pot: ${fmt(pot)}.`;
+      } else {
+        alert = `success:The pot exactly covers all carers at their stated rates. ✓`;
+      }
+    }
+
+    // Rounding: adjust last carer for rounding errors (weighted/hours modes)
+    if (mode !== 'exact') {
+      const totalPay = pays.reduce((s, p) => s + p.pay, 0);
+      const diff = pot - totalPay;
+      if (pays.length > 0 && Math.abs(diff) < 0.05) {
+        pays[pays.length - 1].pay += diff;
+      }
+    }
+
+    // Build results HTML
+    let rows = pays.map(p => {
+      const costAtRate = p.hours * p.rate;
+      const effLine = mode !== 'exact'
+        ? `<br><small style="color:var(--text-muted);font-family:'DM Mono',monospace;font-size:0.75rem">eff. rate: ${fmt(p.effRate)}/hr</small>`
+        : '';
+      return `
+        <tr>
+          <td><strong>${escHtml(p.name)}</strong></td>
+          <td class="mono">${p.hours.toLocaleString('en-GB', {maximumFractionDigits:1})}</td>
+          <td class="mono">${fmt(p.rate)}</td>
+          <td class="mono">${fmt(costAtRate)}</td>
+          <td class="pay-cell">${fmt(p.pay)}${effLine}</td>
+        </tr>`;
+    }).join('');
+
+    const totalPaid = pays.reduce((s,p) => s + p.pay, 0);
+    const totalHoursAll = pays.reduce((s,p) => s + p.hours, 0);
+
+    let alertHtml = '';
+    if (alert) {
+      const [type, msg] = alert.split(':');
+      alertHtml = `<div class="alert alert-${type}" style="border-radius:0;border-left:none;border-right:none;border-bottom:none"><span class="alert-icon">${type==='danger'?'⚠':type==='warn'?'ℹ':'✓'}</span><span>${msg}</span></div>`;
+    }
+
+    // Progress bar
+    const pct = Math.min((totalPaid / pot) * 100, 100);
+    const over = totalPaid > pot + 0.01;
+    const progressBar = mode === 'exact' ? `
+      <div class="progress-wrap" style="padding:1rem 1.5rem 0.25rem">
+        <div class="progress-label"><span>Pot used</span><span>${fmt(totalPaid)} / ${fmt(pot)}</span></div>
+        <div class="progress-track"><div class="progress-fill ${over?'over':'ok'}" style="width:${pct}%"></div></div>
+      </div>` : '';
+
+    resultsDiv.style.display = 'block';
+    resultsDiv.innerHTML = `
+      <div class="results-card">
+        <div class="results-header">
+          <span>📋</span>
+          <h2>Pay Breakdown</h2>
+        </div>
+        ${progressBar}
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Carer</th>
+              <th>Hours</th>
+              <th>Listed Rate</th>
+              <th>Cost at Rate</th>
+              <th>Amount to Pay</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+          <tfoot>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td class="mono"><strong>${totalHoursAll.toLocaleString('en-GB',{maximumFractionDigits:1})} hrs</strong></td>
+              <td></td>
+              <td></td>
+              <td class="total-pay">${fmt(totalPaid)}</td>
+            </tr>
+          </tfoot>
+        </table>
+        ${alertHtml}
+      </div>
+      <div class="actions-row no-print">
+        <button class="btn btn-ghost" onclick="window.print()">🖨 Print / Save PDF</button>
+      </div>
+    `;
+
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function resetAll() {
+    document.getElementById('pot').value = '';
+    document.getElementById('carers-list').innerHTML = '';
+    carerIds = [];
+    carerCount = 0;
+    document.getElementById('results').style.display = 'none';
+    recalculate();
+    // Re-add two blank rows
+    addCarer(); addCarer();
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Init
+  setMode('weighted');
+  addCarer('', '', '');
+  addCarer('', '', '');
+</script>
+</body>
+</html>
