@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>How are Computers Possible?</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="./slides/reveal.js-master/dist/reveal.css">
+		<link rel="stylesheet" href="./slides/reveal.js-master/dist/theme/night.css" id="theme">
+        <link rel="stylesheet" href="./quantum.css">
+        <style>
+            .callout {
+                background: rgba(255,255,255,0.06);
+                border-left: 6px solid #6b9bd1;
+                padding: 16px 18px;
+                border-radius: 8px;
+                text-align: left;
+            }
+            .mono {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            }
+            pre code {
+                font-size: 0.9em;
+                line-height: 1.25em;
+            }
+            .small {
+                font-size: 0.8em;
+                color: #aaa;
+            }
+            .two-col {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 18px;
+                align-items: start;
+            }
+            table.simple {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.9em;
+            }
+            table.simple th, table.simple td {
+                border: 1px solid rgba(255,255,255,0.18);
+                padding: 10px 12px;
+                vertical-align: top;
+            }
+            table.simple th {
+                color: #ddd;
+                background: rgba(255,255,255,0.06);
+            }
+            .terminal {
+                background: #111;
+                border: 1px solid rgba(255,255,255,0.15);
+                border-radius: 10px;
+                padding: 14px 16px;
+                text-align: left;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                font-size: 0.9em;
+                line-height: 1.3em;
+                white-space: pre-wrap;
+            }
+            .terminal .cmd { color: #8bc34a; }
+            .terminal .out { color: #ddd; }
+            .terminal .err { color: #ff5252; }
+            .terminal .warn { color: #ffb74d; }
+            .pill {
+                display: inline-block;
+                padding: 3px 8px;
+                border-radius: 999px;
+                background: rgba(255,255,255,0.08);
+                border: 1px solid rgba(255,255,255,0.12);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section>
+                    <h2>How are Computers Possible?</h2>
+                    <p class="small">Abstraction • Interpretation</p>
+                </section>
+
+                <!-- <section>
+                    <h3>Takeaway</h3>
+                    <div class="callout">
+                        <p class="fragment">Computers are powerful because they operate on <strong>abstract form</strong>.</p>
+                        <p class="fragment">That same feature that makes them <strong>universal</strong></p>
+                        <p class="fragment">also makes them <strong>vulnerable</strong>.</p>
+                    </div>
+                </section> -->
+
+                <section>
+                    <h3>Instructions</h3>
+                    <div class="r-stack">
+                        <ul class="fragment fade-in-then-out">
+                            <li>Build a house</li>
+                            <li>Bake a cake</li>
+                            <li>Assemble a bike</li>
+                        </ul>
+                        <ul class="fragment fade-in">
+                            <li>Add numbers</li>
+                            <li>Sort a list</li>
+                            <li>Flip bits</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>How to Add</h3>
+                        <ul>
+                            <li class="fragment">Abacus</li>
+                            <li class="fragment">Pen &amp; paper</li>
+                            <li class="fragment">Calculator</li>
+                            <li class="fragment">Gears / valves / transistors</li>
+                        </ul>
+                        <p class="fragment small">Addition is <em>multiply realizable</em>.</p>
+                    </section>
+
+                    <section>
+                        <h3>Instruction Output</h3>
+                        <div class="two-col">
+                            <div class="callout">
+                                <p><strong>House / cake:</strong></p>
+                                <p>something physical</p>
+                            </div>
+                            <div class="callout">
+                                <p><strong>Addition:</strong></p>
+                                <p>abstract, non-physical numbers</p>
+                            </div>
+                        </div>
+                        <p class="fragment small">The “essence” of addition is informational, not physical.</p>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Two kinds of instructions</h3>
+                    <table class="simple">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Relationship to outcome</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Constitutive</strong></td>
+                                <td>The physical stuff <em>is</em> the outcome</td>
+                                <td>Bricks make the house</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Implementational</strong></td>
+                                <td>The physical stuff <em>represents</em> the outcome</td>
+                                <td>Beads / voltages represent numbers</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="fragment"><strong>Computation depends on representation.</strong></p>
+                </section>
+
+                <section>
+                    <h3>Computation</h3>
+                    <ul>
+                        <li class="fragment"><strong>Implementation-independent</strong></li>
+                        <li class="fragment"><strong>Multiply realizable</strong></li>
+                        <li class="fragment">Still needs physics to be implemented</strong></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Interpretation Idea</h3>
+                        <div class="callout">
+                            <p class="fragment">Machine states don’t mean anything intrinsically.</p>
+                            <p class="fragment"><strong>Meaning is assigned</strong> by us (interpretation).</p>
+                            <p class="fragment">So we can choose to interpret states as <strong>data</strong></p>
+                            <p class="fragment">or as <strong>instructions</strong>.</p>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Stored Program</h3>
+                        <ul>
+                            <li class="fragment">No deep boundary between <strong>code</strong> and <strong>data</strong></li>
+                            <li class="fragment">Instructions can live in memory alongside data</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>Where is this Interpretation?</h3>
+                        <div class="callout">
+                            <p class="fragment">In the <strong>decoder</strong>: hardwired.</p>
+                            <p class="fragment"><span class="mono">0001</span> can mean “PRINT”</p>
+                            <p class="fragment">or it can mean the number <span class="mono">1</span>.</p>
+                            <p class="fragment">Depends on how the interpreter works.</p>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Example</h2>
+                        <br>
+                        <div style="background: #1e1e1e; padding: 20px; border-radius: 10px;" class="mono">
+                            <span style="color: #4CAF50;">encoded program</span>
+                            <span style="color: #FF9800;">&nbsp;separator&nbsp;</span>
+                            <span style="color: #2196F3;">input data</span>
+                        </div>
+                        <br>
+                    </section>
+
+                    <section>
+                        <h3>5-bit rule format</h3>
+                        <div style="display: flex; justify-content: space-around; margin: 26px 0;">
+                            <div><span style="color: #4CAF50;">[state]</span><br><small>1 bit</small></div>
+                            <div>+</div>
+                            <div><span style="color: #FF9800;">[read]</span><br><small>1 bit</small></div>
+                            <div>+</div>
+                            <div><span style="color: #2196F3;">[write]</span><br><small>1 bit</small></div>
+                            <div>+</div>
+                            <div><span style="color: #9C27B0;">[move]</span><br><small>0=L, 1=R</small></div>
+                            <div>+</div>
+                            <div><span style="color: #E91E63;">[next]</span><br><small>1 bit</small></div>
+                        </div>
+                        <div class="callout mono">
+                            Example:
+                            <span style="color: #4CAF50;">0</span><span style="color: #FF9800;">0</span><span style="color: #2196F3;">1</span><span style="color: #9C27B0;">1</span><span style="color: #E91E63;">0</span>
+                            = “in state 0, reading 0 → write 1, move R, next 0”
+                        </div>
+                        <p class="fragment small">This is a tiny “instruction set”: symbols become actions via interpretation.</p>
+                    </section>
+
+                    <section>
+                        <h3>The Rule Table</h3>
+                        <table class="simple mono" style="font-size: 0.85em;">
+                            <thead>
+                                <tr>
+                                    <th>Meaning</th>
+                                    <th>Bits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>state 0, read 0 → write 1, move R, next 0</td>
+                                    <td><span class="pill">0 0 1 1 0</span> = <span style="color:#4CAF50;">00110</span></td>
+                                </tr>
+                                <tr>
+                                    <td>state 0, read 1 → write 0, move R, next 0</td>
+                                    <td><span class="pill">0 1 0 1 0</span> = <span style="color:#4CAF50;">01010</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section>
+                        <h3>Decoder = hardwired interpretation</h3>
+                        <div class="callout">
+                            <p class="fragment">The machine has fixed circuitry for: “treat 5 bits as \([state,read,write,move,next]\)”.</p>
+                            <p class="fragment">Given current <span class="mono">state</span> and tape <span class="mono">read</span>, it <strong>scans</strong> the rule area for a matching prefix.</p>
+                            <p class="fragment">When it finds one, it performs the encoded action (<span class="mono">write/move/next</span>).</p>
+                        </div>
+                        <p class="fragment small">The same symbols can be “data” somewhere else; the decoder makes them “instruction” here.</p>
+                    </section>
+
+                    <section>
+                        <h3>Bit Flipping</h3>
+                        <div style="background: #000; padding: 18px; border-radius: 10px;" class="mono">
+                            <span style="background: #1e3a1e; padding: 5px 8px; border-radius: 5px; color: #4CAF50;">00110</span>
+                            <span style="color: #666;">00</span>
+                            <span style="background: #1e3a1e; padding: 5px 8px; border-radius: 5px; color: #4CAF50;">01010</span>
+                            <span style="background: #4a3000; padding: 5px 8px; border-radius: 5px; color: #FF9800;">000</span>
+                            <span style="background: #0d3b4f; padding: 5px 8px; border-radius: 5px; color: #2196F3;">01101</span>
+                        </div>
+                        <div class="fragment small" style="margin-top: 10px; display:flex; justify-content: space-between;">
+                            <span style="color:#4CAF50;">rules</span>
+                            <span style="color:#666;">sep</span>
+                            <span style="color:#4CAF50;">rules</span>
+                            <span style="color:#FF9800;">program/data sep</span>
+                            <span style="color:#2196F3;">data</span>
+                        </div>
+                        <p class="fragment"><strong>Goal:</strong> flip every data bit by stepping right.</p>
+                    </section>
+
+                    <section>
+                        <h3>Step 1</h3>
+                        <div class="callout mono">
+                            <div style="font-size: 1.1em;">
+                                <span style="color:#888;">001100001010</span><span style="color:#FF9800;">000</span><span style="color:#2196F3; background: rgba(255,235,59,0.2); padding: 2px 6px; border-radius: 4px;">0</span><span style="color:#2196F3;">1101</span>
+                            </div>
+                            <div class="small">state = 0, read = 0</div>
+                            <div class="fragment" style="margin-top: 10px;">
+                                match rule: <span class="pill">0 0 1 1 0</span> → write <span style="color:#FF9800;">1</span>, move R, next 0
+                            </div>
+                        </div>
+                        <p class="fragment small">Decoder turns the matched 5-bit pattern into a concrete action.</p>
+                    </section>
+
+                    <section>
+                        <h3>Step 2</h3>
+                        <div class="callout mono">
+                            <div style="font-size: 1.1em;">
+                                <span style="color:#888;">001100001010</span><span style="color:#FF9800;">000</span><span style="color:#2196F3;">1</span><span style="color:#2196F3; background: rgba(255,235,59,0.2); padding: 2px 6px; border-radius: 4px;">1</span><span style="color:#2196F3;">01</span>
+                            </div>
+                            <div class="small">state = 0, read = 1</div>
+                            <div class="fragment" style="margin-top: 10px;">
+                                match rule: <span class="pill">0 1 0 1 0</span> → write <span style="color:#2196F3;">0</span>, move R, next 0
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Result</h3>
+                        <div style="display: flex; justify-content: center; gap: 40px; margin: 40px 0;">
+                            <div>
+                                <div class="small">INPUT</div>
+                                <div class="mono" style="font-size: 1.8em; color: #2196F3;">0 1 1 0 1</div>
+                            </div>
+                            <div style="font-size: 2em;">→</div>
+                            <div>
+                                <div class="small">OUTPUT</div>
+                                <div class="mono" style="font-size: 1.8em; color: #4CAF50;">1 0 0 1 0</div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Vulnerabilities</h3>
+                    <ul>
+                        <li class="fragment">Buffer Overflow</li>
+                        <li class="fragment">SQL Injection</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Close</h3>
+                    <ul>
+                        <li class="fragment">Computation is abstract.</li>
+                        <li class="fragment">Computation is possible because of our interpretations of physical states (decoders)</li>
+                        <li class="fragment">Vulnerability is the cost of Universality</li>
+                    </ul>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="./slides/reveal.js-master/dist/reveal.js"></script>
+		<script src="./slides/reveal.js-master/plugin/math/math.js"></script>
+		<script>
+			Reveal.initialize({
+				history: true,
+				transition: 'linear',
+				mathjax2: {
+					config: 'TeX-AMS_HTML-full',
+					TeX: {
+						Macros: {
+							R: '\\mathbb{R}',
+							set: [ '\\left\\{#1 \\; ; \\; #2\\right\\}', 2 ]
+						}
+					}
+				},
+				plugins: [ RevealMath.MathJax2 ]
+			});
+
+            function renderBufferOverflowDemo(input) {
+                const bufferSize = 8;
+                const term = document.getElementById('bo-terminal');
+                if (!term) return;
+
+                const safe = input.length <= bufferSize;
+                const cmd = `$ ./vulnerable "${input}"`;
+                let out = `<span class="cmd">${cmd}</span>\n`;
+
+                if (safe) {
+                    out += `<span class="out">buffer=${input}\nProgram completed successfully.</span>\n`;
+                    out += `<span class="warn">input length: ${input.length} bytes (fits in ${bufferSize}-byte buffer)</span>`;
+                } else {
+                    const overflow = input.length - bufferSize;
+                    const smashed = input.slice(bufferSize, bufferSize + 8) || '(none)';
+                    out += `<span class="out">buffer=${input}</span>\n`;
+                    out += `<span class="err">Segmentation fault (core dumped)</span>\n`;
+                    out += `<span class="warn">input length: ${input.length} bytes (overflows by ${overflow})</span>\n`;
+                    out += `<span class="warn">return address overwritten with: ${smashed}</span>`;
+                }
+
+                term.innerHTML = out;
+            }
+
+            Reveal.on('ready', function () {
+                const input = document.getElementById('bo-input');
+                const run = document.getElementById('bo-run');
+                if (run && input) {
+                    run.addEventListener('click', () => renderBufferOverflowDemo(input.value));
+                    renderBufferOverflowDemo(input.value);
+                }
+            });
+		</script>
+    </body>
+</html>
+
