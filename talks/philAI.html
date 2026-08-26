@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Phil_AI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="./slides/reveal.js-master/dist/reveal.css">
+		<link rel="stylesheet" href="./slides/reveal.js-master/dist/theme/night.css" id="theme">
+        <link rel="stylesheet" href="./AI.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section>
+                    <h2>Philosophy of AI, Or: How to be a Better Prompt Engineer</h2>
+                </section>
+
+                <section>
+                    <h2>Meta-philosophy</h2>
+                    <div class="r-stack">
+                        <div class="fragment fade-in-then-out">
+                          <h4>What people think it is</h4>
+                          <ol>
+                              <li>No practical applications</li>
+                              <li>Obsession with what things "really mean". Just look it up in a dictionary...</li>
+                              <li>Obsession with pedantry</li>
+                          </ol>
+                      </div>
+                        <div class="fragment fade-in">
+                            <h4>What it actually is</h4>
+                            <ol>
+                                <li>Not really a criticism...</li>
+                                <li>This should NOT be the point of philosophy</li>
+                                <li>Obsession with precision, clarity, good questions</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                  <!-- <h2>"Intelligent" Computers</h2> -->
+                    <div class="r-stack">
+                      
+                      <div class="fragment fade-in-then-out">
+                        <h4>IBM's Deep Blue: rule-based</h4>
+                        <img src="./deep_blue.jpg">
+                    </div>
+                      <div class="fragment fade-in">
+                          <h4>Google DeepMind's AlphaGo: statistical</h4>
+                          <img src="./alphago.webp">
+                      </div>
+                  </div>
+                </section>
+                    
+
+
+
+                <section>
+                  <!-- <h2>Language Models and NLP</h2> -->
+                    <div class="r-stack">
+                      
+                      <div class="fragment fade-in-then-out">
+                        <h4>ELIZA: rules-based</h4>
+                        <img src="./ELIZA_conversation.png">
+                    </div>
+                      <div class="fragment fade-in">
+                          <h4>GPTs: statistical</h4>
+                          <img src="./GPT.png">
+                      </div>
+                  </div>
+                </section>
+
+                <section>
+                  <h2>Rules-based models</h2>
+                  <ul>
+                    <li class="fragment">"if-then" conditions</li>
+                    <li class="fragment">deterministic</li>
+                    <li class="fragment">hard to scale</li>
+                    <li class="fragment">can very quickly become complex</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Statistics-based models</h2>
+                  <ul>
+                    <li class="fragment">Probability distributions</li>
+                    <li class="fragment">Datasets provide the probabilities</li>
+                    <li class="fragment">indeterministic</li>
+                    <li class="fragment">requires large datasets</li>
+                    <li class="fragment">"learns" from data</li>
+                    <li class="fragment">scales with complexity and large datasets</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>Language Models and Translation</h3>
+                  <ul>
+                      <li class="fragment">Translation seems to be a rules-based activity</li>
+                      <li class="fragment">Why might rules-based approaches not work well in translation?</li>
+                      <li class="fragment">Ambiguity (where meaning depends on context)</li>
+                      <li class="fragment">Idioms ("keeping mum", "raining cats and dogs")</li>
+                      <li class="fragment">How can it get the grammar right without being programmed with the rules of the grammar?</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Emergence</h2>
+                  <ul>
+                      <li class="fragment">The behaviour of large colonies from the actions of individual ants</li>
+                      <li class="fragment">Collective human "crowd" behaviour</li>
+                      <li class="fragment">How prices of financial instruments emerge from buying a selling actions of market participants.</li>
+                      <li class="fragment">How consciousness emerges from neural activity</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Emergence</h2>
+                  <ul>
+                      <li class="fragment">Emergent properties are not reducible to the properties of individual components</li>
+                      <li class="fragment">Manifest novel and unexpected characteristics at higher levels of organization</li>
+                      <li class="fragment">Whole is greater than the sum of its parts, displaying new qualities or behaviors</li>
+                      <li class="fragment">Emergent phenomena cannot be explained by analyzing components in isolation</li>
+                  </ul>
+                </section>
+
+
+                <section>
+                  <h2>Emergence in LLMs</h2>
+                  <ul>
+                      <li class="fragment">Rules of grammar</li>
+                      <li class="fragment">Every single response</li>
+                      <li class="fragment">GPT-3: unprompted CoT reasoning.</li>
+                      <li class="fragment">Solving problems not included in the training data(?)</li>
+                      <li class="fragment">AlphaGo's famous "move 37"</li>
+
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Emergence in LLMs</h2>
+                  <div class="r-stack">
+                      <div class="fragment fade-in-then-out">
+                        <h4>Basic Emergence</h4>
+                        <p>reproduces patterns the same as or very similar to its training data: regurgitating training text.</p>
+                      </div>
+                      <div class="fragment fade-in-then-out">
+                          <h4>Compositional Emergence</h4>
+                          <p>LLM combines patterns in new put predictable ways.</p>
+                      </div>
+                      <div class="fragment fade-in">
+                        <h4>Novel Emergence</h4>
+                        <p>LLM appears to somehow produce an output which transcends it's training data. Not an obvious example of basic or compositional emergence.</p>
+                    </div>
+                  </div>
+              </section>
+
+              <section>
+                <h2>Meta-patterns</h2>
+                <ul>
+                    <li class="fragment">Problem-solving strategies</li>
+                    <li class="fragment">Mathematical and logical principles</li>
+                    <li class="fragment">Patterns of logical reasoning</li>
+                </ul>
+                <p class="fragment">Novel = Compositional on the pattern-level</p>
+              </section>
+
+              <section>
+                <h2>Prompting</h2>
+                <ul>
+                    <li class="fragment">"Output your response as JSON"</li>
+                    <li class="fragment">"Ensure your response follows ethical principles"</li>
+                    <li class="fragment">"Always be truthful"</li>
+                    <li class="fragment">"Do not hallucinate"</li>
+                    <li class="fragment">Explains the success of CoT or few-shot prompting</li>
+                </ul>
+              </section>
+
+              <section>
+                <h2>Other Musings</h2>
+                <ul>
+                    <li class="fragment">Does this mirror human lanugage learning?</li>
+                    <li class="fragment">"PhD-level" LLMs</li>
+                    <li class="fragment">What are "rules" anyway?</li>
+                </ul>
+              </section>
+
+            </div>
+
+        </div>
+
+        <script src="./slides/reveal.js-master/dist/reveal.js"></script>
+		<script src="./slides/reveal.js-master/plugin/math/math.js"></script>
+		<script>
+			Reveal.initialize({
+				history: true,
+				transition: 'linear',
+
+				mathjax2: {
+					config: 'TeX-AMS_HTML-full',
+					TeX: {
+						Macros: {
+							R: '\\mathbb{R}',
+							set: [ '\\left\\{#1 \\; ; \\; #2\\right\\}', 2 ]
+						}
+					}
+				},
+
+				// There are three typesetters available
+				// RevealMath.MathJax2 (default)
+				// RevealMath.MathJax3
+				// RevealMath.KaTeX
+				//
+				// More info at https://revealjs.com/math/
+				plugins: [ RevealMath.MathJax2 ]
+			});
+		</script>
+    </body>
+</html>
